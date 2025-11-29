@@ -49,6 +49,8 @@ public:
         if (response.StatusCode >= 0 && response.StatusCode < sizeof(IntToStatus) / sizeof(IntToStatus[0]))
             pstatus = IntToStatus[response.StatusCode];
         Status status = pstatus ? *pstatus : Status::CODE_400;
+        if (!pstatus)
+            cerr << "D returned status code " << response.StatusCode << ", replacing with 400" << endl;
         if (response.IsInPlace)
             res = ResponseFactory::createResponse(status, response.Document);
         else

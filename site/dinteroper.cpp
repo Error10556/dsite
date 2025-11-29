@@ -133,7 +133,7 @@ std::optional<Response> DSite::Request(const std::string& url,
              << endl;
         return {};
     }
-    return {{ code->Value(), str->Value(), mime->Value(), isheredoc->Value() }};
+    return {{ static_cast<int>(code->Value().ClampToLong()), str->Value(), mime->Value(), isheredoc->Value() }};
 }
 
 std::string DSite::Host() const {

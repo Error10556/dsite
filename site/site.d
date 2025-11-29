@@ -30,8 +30,8 @@ end
 var determine_rus := func(headers) is
     var optAccepted := find_header("accept-language", headers)
     if not optAccepted is string => return false
-    for entry in optAccepted.Split(";") loop
-        var lang := entry.Split(",")[1]
+    for entry in optAccepted.Split(",") loop
+        var lang := entry.Split(";")[1]
         lang := lang.Slice(1, 3, 1).Lower
         if lang = "ru" => return true
         if lang = "en" => return false
