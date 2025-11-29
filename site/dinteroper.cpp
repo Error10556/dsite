@@ -108,16 +108,31 @@ std::optional<Response> DSite::Request(const std::string& url,
             vector<pair<optional<string>, shared_ptr<RuntimeValue>>>{{"key", key}, {"value", value}});
     });
     auto res = func->UserCall(context, {make_shared<StringValue>(url), make_shared<ArrayValue>(headerTuples)});
-    if (context.State.IsThrowing()) return {};
+    if (context.State.IsThrowing()) {
+        ReportError(context.State.GetError());
+        return {};
+    }
     auto tuple = dynamic_pointer_cast<TupleValue>(res);
-    if (!tuple) return {};
+    if (!tuple) {
+        cerr << "The returned value was not a tuple (was \"" << res->TypeOfValue()->Name() << "\")" << endl;
+        return {};
+    }
     auto vals = tuple->Values();
-    if (vals.size() != 4) return {};
+    if (vals.size() != 4) {
+        cerr << "The returned tuple contained " << vals.size() << " values, but 4 were expected" << endl;
+        return {};
+    }
     auto code = dynamic_pointer_cast<IntegerValue>(vals[0]);
     auto str = dynamic_pointer_cast<StringValue>(vals[1]);
     auto mime = dynamic_pointer_cast<StringValue>(vals[2]);
     auto isheredoc = dynamic_pointer_cast<BoolValue>(vals[3]);
-    if (!code || !str || !mime || !isheredoc) return {};
+    if (!code || !str || !mime || !isheredoc) {
+        cerr << "The returned tuple consisted of {\"" << vals[0]->TypeOfValue()->Name() << "\", \""
+             << vals[0]->TypeOfValue()->Name() << "\", \"" << vals[0]->TypeOfValue()->Name() << "\", \""
+             << vals[0]->TypeOfValue()->Name() << "\"}, but expected {\"int\", \"string\", \"string\", \"bool\"}."
+             << endl;
+        return {};
+    }
     return {{ code->Value(), str->Value(), mime->Value(), isheredoc->Value() }};
 }
 

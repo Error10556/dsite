@@ -25,8 +25,9 @@ COPY ./statusMap.cpp ./statusMap.cpp
 COPY ./statusMap.h ./statusMap.h
 RUN mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && make
 
-FROM alpine
+FROM ubuntu
 RUN mkdir /app/www -p
 WORKDIR /app
 COPY --from=builder /proj/build/dsite /usr/bin/dsite
+COPY ./site.d /app/site.d
 ENTRYPOINT ["/usr/bin/dsite"]
