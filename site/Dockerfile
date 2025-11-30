@@ -1,6 +1,5 @@
 FROM ubuntu AS builder
-RUN apt-get update
-RUN apt-get install git cmake build-essential -y
+RUN apt-get update && apt-get install git cmake build-essential -y
 RUN mkdir /deps /proj
 WORKDIR /deps
 RUN git clone https://github.com/oatpp/oatpp --depth 1 --branch master
