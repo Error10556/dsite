@@ -1,0 +1,74 @@
+html {
+    font-family: sans;
+    display: block;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+body {
+    text-align: left;
+    display: inline-flex;
+    flex-direction: column;
+    flex: 1 0 auto;
+
+    padding: 1cm;
+    box-sizing: border-box;
+    margin: 0;
+    justify-content: center;
+    width: calc(min(120vh, 100vw));
+    min-height: 100%;
+}
+
+h1, h2 {
+    text-align: center;
+    margin: 0;
+}
+
+h1 {
+    font-size: 1in;
+}
+
+h2 {
+    font-size: 0.6in;
+}
+
+h3 {
+    font-size: 1cm;
+    padding-bottom: 1mm;
+    border-bottom: 2px solid gray;
+    margin-bottom: 1mm;
+    margin-top: 2cm;
+}
+
+body p {
+    font-size: 6mm;
+    margin-top: 4mm;
+    margin-bottom: 0;
+}
+
+footer {
+    margin-top: auto;
+}
+
+.badgesection {
+    text-align: center;
+    margin-top: 1in;
+    width: 100%;
+}
+
+.badge {
+    display: inline-block;
+    background: red;
+    width: 300px;
+    height: 120px;
+    margin: 2mm;
+}
+
+.badge img {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
