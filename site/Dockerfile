@@ -10,7 +10,7 @@ RUN cmake -DCMAKE_BUILD_TYPE=Release -DOATPP_BUILD_TESTS=OFF -DOATPP_DISABLE_ENV
 RUN make install
 WORKDIR /deps
 RUN rm -r oatpp
-RUN git clone https://github.com/Error10556/d-interpreter --depth 1 --branch dev dinterp
+RUN git clone https://github.com/Error10556/d-interpreter --depth 1 --branch main dinterp
 RUN mkdir /deps/dinterp/build
 WORKDIR /deps/dinterp/build
 RUN cmake -DCMAKE_BUILD_TYPE=Release -DTesting=OFF -DInstallInterpreter=OFF -DInstallSDK=ON ../src
@@ -26,8 +26,7 @@ COPY ./statusMap.h ./statusMap.h
 RUN mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && make
 
 FROM ubuntu
-RUN mkdir /app/www -p
+RUN mkdir /app
 WORKDIR /app
 COPY --from=builder /proj/build/dsite /usr/bin/dsite
-COPY ./site.d /app/site.d
 ENTRYPOINT ["/usr/bin/dsite"]

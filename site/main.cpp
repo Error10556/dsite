@@ -58,6 +58,7 @@ public:
                 status, make_shared<StreamingBody>(
                             make_shared<oatpp::data::stream::FileInputStream>(response.Document.c_str())));
         res->putHeader("Content-Type", response.MIME);
+        OATPP_LOGi("dsite", "GET {}: returned {}", url, response.MIME)
         return res;
     }
 };
